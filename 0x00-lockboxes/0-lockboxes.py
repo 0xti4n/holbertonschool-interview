@@ -12,6 +12,9 @@ def canUnlockAll(boxes):
     map_list[0] = True
     copy_keys = []
 
+    if not isinstance(key, list):
+        return False
+
     if len(key) == 0:
         return False
 
