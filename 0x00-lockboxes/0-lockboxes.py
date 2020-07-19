@@ -22,6 +22,8 @@ def canUnlockAll(boxes):
         if key[0] > len(boxes) - 1:
             return False
         if isinstance(boxes[key[0]], list):
+            if boxes[key[0]] == []:
+                map_list[key[0]] = True
             map_list[key[0]] = True
 
             for i in boxes[key[0]]:
