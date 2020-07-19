@@ -8,24 +8,17 @@ def canUnlockAll(boxes):
     map_list = list(range(len(boxes)))
     unlock = False
 
-    if len(boxes) == 0:
-        return True
-
-    while keys:
-        copy_keys = []
-        if keys[0] in map_list:
-            unlock = True
-            for idx in boxes[keys[0]]:
-                if idx not in keys and idx in map_list:
-                    copy_keys.append(idx)
-            map_list.remove(keys[0])
-            keys.pop(0)
-        keys.extend(copy_keys)
+    while map_list:
+        copy_list = []
+        for i in keys:
+            if i in map_list:
+                unlock = True
+                for j in boxes[i]:
+                    if j not in keys and j in map_list:
+                        copy_list.append(j)
+                map_list.remove(i)
+        keys = [cpy for cpy in copy_list]
         if not unlock:
             return False
-        unlock = False
-
-    if len(keys) == 0 and len(map_list) > 0:
-        return False
-
+        unlock= False
     return True
