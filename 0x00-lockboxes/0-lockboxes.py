@@ -7,7 +7,7 @@ def canUnlockAll(boxes):
     keys = [0]
     map_list = list(range(len(boxes)))
     unlock = False
-    
+
     while keys:
         copy_keys = []
         if keys[0] in map_list:
@@ -21,7 +21,7 @@ def canUnlockAll(boxes):
         if not unlock:
             return False
         unlock = False
-    
+
     if len(map_list) > 0:
         return False
     return True
