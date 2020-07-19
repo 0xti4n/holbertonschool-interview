@@ -20,5 +20,5 @@ def canUnlockAll(boxes):
         keys = [cpy for cpy in copy_list]
         if not unlock:
             return False
-        unlock= False
+        unlock = False
     return True
