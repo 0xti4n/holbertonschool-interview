@@ -17,20 +17,18 @@ def canUnlockAll(boxes):
 
     while key:
         if key[0] > len(boxes) - 1:
+            print('entre3')
             return False
         if isinstance(boxes[key[0]], list):
-            if boxes[key[0]] == []:
-                map_list[key[0]] = True
+            map_list[key[0]] = True
 
             for i in boxes[key[0]]:
                 if i > len(boxes) - 1:
+                    print('entre4')
                     return False
-                if i not in key and i not in copy_keys:
-                    key.append(i)
-                    map_list[key[0]] = True
-                elif i in key:
-                    map_list[key[0]] = True
-                map_list[key[0]] = True
+                if i != 0:
+                    if i not in key and i not in copy_keys:
+                        key.append(i)
             copy = key.pop(0)
             copy_keys.append(copy)
     return all(map_list)
