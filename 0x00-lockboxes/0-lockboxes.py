@@ -4,6 +4,9 @@
 
 def canUnlockAll(boxes):
     """Function that unlock boxes"""
+    if len(boxes) == 0:
+        return False
+
     key = boxes[0]
     map_list = [[]] * len(boxes)
     map_list[0] = True
@@ -17,14 +20,12 @@ def canUnlockAll(boxes):
 
     while key:
         if key[0] > len(boxes) - 1:
-            print('entre3')
             return False
         if isinstance(boxes[key[0]], list):
             map_list[key[0]] = True
 
             for i in boxes[key[0]]:
                 if i > len(boxes) - 1:
-                    print('entre4')
                     return False
                 if i != 0:
                     if i not in key and i not in copy_keys:
