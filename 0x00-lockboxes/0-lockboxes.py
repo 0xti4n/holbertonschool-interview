@@ -8,6 +8,9 @@ def canUnlockAll(boxes):
     map_list = list(range(len(boxes)))
     unlock = False
 
+    if len(boxes) == 0:
+        return True
+
     while keys:
         copy_keys = []
         if keys[0] in map_list:
