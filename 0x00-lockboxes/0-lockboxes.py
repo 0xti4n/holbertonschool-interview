@@ -18,8 +18,11 @@ def canUnlockAll(boxes):
             map_list.remove(keys[0])
             keys.pop(0)
         keys.extend(copy_keys)
-        if len(keys) == 0 and len(map_list) > 0:
+        if not unlock:
             return False
         unlock = False
+
+    if len(keys) == 0 and len(map_list) > 0:
+        return False
 
     return True
