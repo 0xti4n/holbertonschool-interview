@@ -38,8 +38,9 @@ size_t binary_tree_size(const binary_tree_t *tree)
 
 int is_perfect_binary_tree(int count)
 {
-	while (count % 3 == 0)
-		count = count / 3;
+	count = count + 1;
+	while (count % 2 == 0)
+		count = count / 2;
 
 	if (count == 1)
 		return (1);
