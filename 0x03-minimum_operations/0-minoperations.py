@@ -21,14 +21,10 @@ def minOperations(n):
     minimum operations"""
     H = 'H'
     con = 0
-    if n <= 0:
+    if type(n) is not int or n < 2:
         return 0
 
-    if n == 1:
-        con += 1
-        return con
-
-    for i in range(1, n):
+    for i in range(n):
         if len(H) == n:
             return con
         if n % len(H) == 0:
