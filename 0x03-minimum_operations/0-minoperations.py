@@ -3,14 +3,14 @@
 
 
 def copy_all(H, con):
-    """copy all for concat"""
+    """Copy all"""
     copy = H
     con += 1
     return con, copy
 
 
 def paste(copy, H, con):
-    """concat the copy"""
+    """Concat copy"""
     paste = copy + H
     con += 1
     return con, paste
@@ -32,4 +32,3 @@ def minOperations(n):
             con, H = paste(copy, H, con1)
         else:
             con, H = paste(copy, H, con)
-    return con
