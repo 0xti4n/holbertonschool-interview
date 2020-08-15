@@ -45,7 +45,7 @@ int is_stable(int grid1[3][3])
 
 /**
 * copy_grid- makes a copy of the grid
-* @grid_copy: where copy will be
+* @copy: where copy will be
 * @grid1: grid to copy
 */
 
