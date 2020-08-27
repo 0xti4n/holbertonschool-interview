@@ -1,1 +1,1 @@
-# holbertonschool-interview# log parsing
+# log parsing
