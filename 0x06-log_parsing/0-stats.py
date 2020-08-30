@@ -23,22 +23,22 @@ try:
         if len(token) > 2:
             status_code = token[7]
             file_s = token[8]
+            file_size += int(file_s)
 
             if status_code in status:
                 status[status_code] += 1
-            file_size += int(file_s)
 
         if con % 10 == 0:
             print('File size: {}'.format(file_size))
-            for k, v in sorted(status.items()):
-                if v != 0:
-                    print('{}: {}'.format(k, v))
+            for k in sorted(status.keys()):
+                if status[k] != 0:
+                    print('{}: {}'.format(k, status[k]))
         con += 1
 except Exception:
     pass
 
 finally:
     print('File size: {}'.format(file_size))
-    for k, v in sorted(status.items()):
-        if v != 0:
-            print('{}: {}'.format(k, v))
+    for k in sorted(status.keys()):
+            if status[k] != 0:
+                print('{}: {}'.format(k, status[k]))
