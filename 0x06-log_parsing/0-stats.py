@@ -25,8 +25,8 @@ try:
 
         if status_code in status:
             status[status_code] += 1
+            file_size += int(file_s)
 
-        file_size += int(file_s)
         if con % 10 == 0:
             print('File size: {}'.format(file_size))
             for k, v in sorted(status.items()):
