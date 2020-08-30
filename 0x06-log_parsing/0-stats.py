@@ -18,11 +18,11 @@ con = 1
 
 try:
     for line in sys.stdin:
-        token = line.split(' ')
+        token = line.split()
 
         if len(token) > 2:
-            status_code = token[7]
-            file_s = token[8]
+            file_s = token[-1]
+            status_code = token[-2]
             file_size += int(file_s)
 
             if status_code in status:
@@ -30,15 +30,16 @@ try:
 
         if con % 10 == 0:
             print('File size: {}'.format(file_size))
-            for k in sorted(status.keys()):
-                if status[k] != 0:
-                    print('{}: {}'.format(k, status[k]))
+            for k, v in sorted(status.items()):
+                if v != 0:
+                    print('{}: {}'.format(k, v))
         con += 1
+
 except Exception:
     pass
 
 finally:
     print('File size: {}'.format(file_size))
-    for k in sorted(status.keys()):
-            if status[k] != 0:
-                print('{}: {}'.format(k, status[k]))
+    for k, v in sorted(status.items()):
+        if v != 0:
+            print('{}: {}'.format(k, v))
