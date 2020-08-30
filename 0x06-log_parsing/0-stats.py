@@ -35,7 +35,7 @@ try:
                     print('{}: {}'.format(k, v))
         con += 1
 
-except Exception:
+except KeyboardInterrupt:
     pass
 
 finally:
