@@ -19,8 +19,10 @@ con = 1
 try:
     for line in sys.stdin:
         token = line.split(' ')
-        status_code = token[7]
-        file_s = token[8]
+
+        if len(token) > 2:
+            status_code = token[-2]
+            file_s = token[-1]
 
         if status_code in status:
             status[status_code] += 1
