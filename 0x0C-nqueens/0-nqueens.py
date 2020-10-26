@@ -2,20 +2,6 @@
 import sys
 """N-QUEENS"""
 
-N = sys.argv
-
-if len(N) > 2:
-    print('Usage: nqueens N')
-    exit(1)
-try:
-    N = int(N[1])
-except:
-    print('N must be a number')
-    exit(1)
-if N < 4:
-    print('N must be at least 4')
-    exit(1)
-
 
 def N_Queens(n):
     def R_queen(queens, xy_dif, xy_sum):
@@ -30,11 +16,29 @@ def N_Queens(n):
     result = []
     R_queen([], [], [])
     return result
-all_cases = []
-res = N_Queens(N)
-for case in res:
+
+if __name__ == "__main__":
+    N = sys.argv
+
+    if len(N) > 2:
+        print('Usage: nqueens N')
+        exit(1)
+
+    try:
+        N = int(N[1])
+    except:
+        print('N must be a number')
+        exit(1)
+
+    if N < 4:
+        print('N must be at least 4')
+        exit(1)
+
     all_cases = []
-    for idx in range(len(case)):
-        ls = [idx, case[idx]]
-        all_cases.append(ls)
-    print(all_cases)
+    res = N_Queens(N)
+    for case in res:
+        all_cases = []
+        for idx in range(len(case)):
+            ls = [idx, case[idx]]
+            all_cases.append(ls)
+        print(all_cases)
