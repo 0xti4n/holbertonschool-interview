@@ -8,7 +8,7 @@ def N_Queens(n):
         n_test = len(queens)
         if n_test == n:
             result.append(queens)
-            return None
+            return 0
         for i in range(n):
             if i not in queens and n_test-i not in xy_dif \
                     and n_test + i not in xy_sum:
