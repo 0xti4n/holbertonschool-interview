@@ -43,8 +43,11 @@ avl_t *sorted_array(avl_t **root, int *array, int start, int end)
 	mid = (start + end) / 2;
 	new = add_node(root, array[mid]);
 
-	new->left = sorted_array(&new, array, start, mid - 1);
-	new->right = sorted_array(&new, array, mid + 1, end);
+	if (mid != start)
+		new->left = sorted_array(&new, array, start, mid - 1);
+
+	if (mid != end)
+		new->right = sorted_array(&new, array, mid + 1, end);
 
 	return (new);
 }
