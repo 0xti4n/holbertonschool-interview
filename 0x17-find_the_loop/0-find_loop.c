@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * loop - check the code.
+ * check_loop - check the code.
  * @tortoise: pointer one by one
  * @hare: pointer one more
  * Return: pointer where the loop start
