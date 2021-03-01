@@ -10,6 +10,7 @@
 List *add_node_end(List **list, char *str)
 {
 	List *new, *last;
+
 	if (list == NULL || str == NULL)
 		return (NULL);
 	new = malloc(sizeof(List));
@@ -48,6 +49,7 @@ List *add_node_end(List **list, char *str)
 List *add_node_begin(List **list, char *str)
 {
 	List *new, *next;
+
 	if (list == NULL || str == NULL)
 		return (NULL);
 	new = malloc(sizeof(List));
