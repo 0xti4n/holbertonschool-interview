@@ -1,143 +1,112 @@
 #include "binary_trees.h"
 
 /**
-* check_order - Checks if all nodes are less or higher than the root.
-* @tree: subtree to evaluate.
-* @n: Value of the root node.
-* @dir: 0 for left (check less values) 1 for right (higher values).
-* Return: 1 if correct order, 0 if not.
-*/
-int check_order(binary_tree_t *tree, int n, int dir)
+ * subtree - Function that checks if a subtree contains only values less than n
+ * @tree: root of a subtree
+ * @n: value to check
+ * @flag: 1 if left or 0 if right
+ * Return: 1 if a subtree contains only lesser values, otherwise 0
+ */
+int subtree(const binary_tree_t *tree, int n, int flag)
 {
-	int left, right;
+	int r_left = 1, r_right = 1;
+
+	if (tree->left)
+		r_left = subtree(tree->left, n, flag);
+	if (tree->right)
+		r_right = subtree(tree->right, n, flag);
+	if (flag && tree->n >= n)
+		return (0);
+	else if (!flag && tree->n <= n)
+		return (0);
+	return (r_left * r_right);
+}
+
+/**
+ * bst_binary_tree - Function that checks if a tree is a Binary search tree
+ * @tree: root of the tree
+ * Return: 1 if the tree is BTS or 0 if not
+ */
+int bst_binary_tree(const binary_tree_t *tree)
+{
+	int r_left = 1, r_right = 1;
 
 	if (!tree)
+		return (0);
+	if (tree->left)
+	{
+		if (!subtree(tree->left, tree->n, 1))
+			return (0);
+		r_left = bst_binary_tree(tree->left);
+	}
+	else
 		return (1);
-	if (dir)
+	if (tree->right)
 	{
-		if (1 * tree->n > n)
-		{
-			left = check_order(tree->left, n, dir);
-			right = check_order(tree->right, n, dir);
-			return (left * right);
-		}
-		return (0);
+		if (!subtree(tree->right, tree->n, 0))
+			return (0);
+		r_right = bst_binary_tree(tree->right);
 	}
 	else
-	{
-		if (1 * tree->n < n)
-		{
-			left = check_order(tree->left, n, dir);
-			right = check_order(tree->right, n, dir);
-			return (left * right);
-		}
-		return (0);
-	}
+		return (1);
+	return (r_left * r_right);
 }
 
 /**
-* binary_tree_is_bst - Checks if a binary tree is a valid Binary Search Tree.
-* @tree: Pointer to the root node of the tree to check.
-* Return: 1 if tree is a valid BST, and 0 otherwise.
-*/
-int binary_tree_is_bst(const binary_tree_t *tree)
+ * rheight - function that calculates the height using recursion
+ * @tree: node to find recursion
+ * Return: the number of height nodes
+ */
+size_t rheight(const binary_tree_t *tree)
 {
-	int left, right;
+	size_t c_left = 0, c_right = 0;
 
-	if (!tree || !check_order(tree->left, tree->n, 0) ||
-		!check_order(tree->right, tree->n, 1))
-		return (0);
-	if ((!tree->left || tree->left->n < tree->n) &&
-		(!tree->right || tree->right->n > tree->n)) {
+	if (tree->left)
+		c_left = rheight(tree->left);
+	if (tree->right)
+		c_right = rheight(tree->right);
+	return ((c_left > c_right) ? c_left + 1 : c_right + 1);
+}
+
+/**
+ * balance_binary - returns the height of a tree
+ * @tree: is the node from which to get the node
+ * Return: an integer with the height or 0 if node is null
+ */
+int balance_binary(const binary_tree_t *tree)
+{
+	int left = 0, right = 0;
+
+	if (tree)
+	{
 		if (tree->left)
-			left = binary_tree_is_bst(tree->left);
-		else
-			left = 1;
+			left = rheight(tree->left);
 		if (tree->right)
-			right = binary_tree_is_bst(tree->right);
-		else
-			right = 1;
-		return (1 * left * right);
+			right = rheight(tree->right);
+		return (left - right);
 	}
-	return (0);
-}
-
-/**
-* binary_tree_height - Measures the height of a binary tree.
-* @tree: Pointer to the root node of the tree to measure the height.
-* Return: The height of the tree.
-*/
-size_t binary_tree_height(const binary_tree_t *tree)
-{
-	size_t left, right;
-
-	if (tree == NULL)
+	else
 		return (0);
-	if (tree->left)
-		left = 1 + binary_tree_height(tree->left);
-	else
-		left = 0;
-	if (tree->right)
-		right = 1 + binary_tree_height(tree->right);
-	else
-		right = 0;
-	if (left >= right)
-		return (left);
-	else
-		return (right);
 }
 
 /**
-* binary_tree_balance - Measures the balance factor of a binary tree.
-* @tree: Pointer to the root node of the tree to measure the balance factor.
-* Return: Balance factor.
-*/
-int binary_tree_balance(const binary_tree_t *tree)
-{
-	int left, right;
-
-	if (!tree)
-		return (0);
-	if (tree->left)
-		left = binary_tree_height(tree->left);
-	else
-		left = -1;
-	if (tree->right)
-		right = binary_tree_height(tree->right);
-	else
-		right = -1;
-	return (left - right);
-}
-
-/**
-* binary_tree_is_avl - Checks if a binary tree is a valid AVL Tree.
-* @tree: Pointer to the root node of the tree to check.
-* Return: 1 if tree is a valid AVL Tree, and 0 otherwise.
-*/
+ * binary_tree_is_avl - Function to checks if a binary tree is a valid AVLTree
+ * @tree: pointer to the root node of the tree to check
+ * Return: 1 if tree is a valid AVL Tree, and 0 otherwise
+ */
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-	int balance, bst, left, right;
+	int r_left = 1, r_right = 1;
 
 	if (!tree)
 		return (0);
-	balance = binary_tree_balance(tree);
-	if (balance <= 1 && balance >= -1)
-		balance = 1;
-	else
-		balance = 0;
-	bst = binary_tree_is_bst(tree);
-	if (bst && balance)
-	{
-		if (tree->left)
-			left = binary_tree_is_avl(tree->left);
-		else
-			left = 1;
-		if (tree->right)
-			right = binary_tree_is_avl(tree->right);
-		else
-			right = 1;
-		return (1 * left * right);
-	}
-	return (0);
+	if ((balance_binary(tree) != 1 && balance_binary(tree) != 0 &&
+	balance_binary(tree) != -1) || !bst_binary_tree(tree))
+		return (0);
+	if (tree->left)
+		r_left = binary_tree_is_avl(tree->left);
+	if (tree->right)
+		r_right = binary_tree_is_avl(tree->right);
+	return (r_left * r_right);
 }
 
