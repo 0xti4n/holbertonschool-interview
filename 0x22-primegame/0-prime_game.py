@@ -40,8 +40,8 @@ def isWinner(x, nums):
             u += 1
         matrix[i] = u
 
-    for n in nums:
-        moves_p1 += matrix[n] % 2 == 1
+    for idx in nums:
+        moves_p1 += matrix[idx] % 2 == 1
 
     if moves_p1 * 2 == zise_nums:
         return None
